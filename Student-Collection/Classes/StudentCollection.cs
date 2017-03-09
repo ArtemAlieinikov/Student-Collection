@@ -95,7 +95,7 @@ namespace Student_Collection.Classes
         public void Clear()
         {
             students = new Student[4];
-            currentIndex = 0;
+            currentIndex = -1;
         }
         public bool Contains(Student studentToCheck)
         {
