@@ -67,7 +67,7 @@ namespace Student_Collection.Classes
         }
         public StudentCollection(int growIndex)
         {
-            students = new Student[2];
+            students = new Student[4];
             this.growIndex = growIndex;
             currentIndex = -1;
         }
@@ -94,7 +94,7 @@ namespace Student_Collection.Classes
         }
         public void Clear()
         {
-            students = new Student[2];
+            students = new Student[4];
             currentIndex = 0;
         }
         public bool Contains(Student studentToCheck)
@@ -134,13 +134,14 @@ namespace Student_Collection.Classes
             {
                 Student[] newStudentsArray = new Student[students.Length - 1];
 
-                for (int i = 0; i < newStudentsArray.Length; ++i)
+                int j = 0;
+                for (int i = 0; i < newStudentsArray.Length; ++i, ++j)
                 {
-                    if (i == removeIndex)
+                    if (j == removeIndex)
                     {
-                        ++i;
+                        ++j;
                     }
-                    newStudentsArray[i - 1] = students[i];
+                    newStudentsArray[i] = students[j];
                 }
 
                 currentIndex--;
