@@ -20,10 +20,7 @@ namespace Student_Collection
             students.Add(new Student(21, "Янкевич", "Karazina", 8));
             students.Add(new Student(22, "Артем", "Karazina", 8));
 
-            students.Remove(new Student(22, "Артем", "Karazina", 8));
-            students.Remove(new Student(5, "", "", 8));
-
-            StudentCollection abc = students.GetStudentsByAssessment(8);
+            students.SortByAssessment();
 
             foreach (Student item in students)
             {

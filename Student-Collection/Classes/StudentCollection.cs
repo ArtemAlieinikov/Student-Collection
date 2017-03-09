@@ -41,7 +41,12 @@ namespace Student_Collection.Classes
                 return growIndex;
             }
         }
-
+        /// <summary>
+        /// Returns the student by Id.
+        /// </summary>
+        /// <param name="studentId">Id of student.</param>
+        /// <returns>Requested student.</returns>
+        /// <exception>IncorrectIdException - student with requested id is not exists.</exception>
         public Student this[int studentId]
         {
             get
@@ -204,28 +209,28 @@ namespace Student_Collection.Classes
             Func<Student, Student, bool> funcOne = (a, b) => a.Id < b.Id;
             Func<Student, Student, bool> funcTwo = (a, b) => a.Id > b.Id;
 
-            QuiqSortByNumberField(students, 0, currentIndex, funcOne, funcTwo);
+            QuiqSortForStudents(students, 0, currentIndex, funcOne, funcTwo);
         }
         public void SortByAssessment()
         {
             Func<Student, Student, bool> funcOne = (a, b) => a.Assessment > b.Assessment;
             Func<Student, Student, bool> funcTwo = (a, b) => a.Assessment < b.Assessment;
 
-            QuiqSortByNumberField(students, 0, currentIndex, funcOne, funcTwo);
+            QuiqSortForStudents(students, 0, currentIndex, funcOne, funcTwo);
         }
         public void SortByName()
         {
             Func<Student, Student, bool> funcOne = (a, b) => a.Name.CompareTo(b.Name) < 0;
             Func<Student, Student, bool> funcTwo = (a, b) => a.Name.CompareTo(b.Name) > 0;
 
-            QuiqSortByStringField(students, 0, currentIndex, funcOne, funcTwo);
+            QuiqSortForStudents(students, 0, currentIndex, funcOne, funcTwo);
         }
         public void SortByUniversity()
         {
             Func<Student, Student, bool> funcOne = (a, b) => a.University.CompareTo(b.University) < 0;
             Func<Student, Student, bool> funcTwo = (a, b) => a.University.CompareTo(b.University) > 0;
 
-            QuiqSortByStringField(students, 0, currentIndex, funcOne, funcTwo);
+            QuiqSortForStudents(students, 0, currentIndex, funcOne, funcTwo);
         }
 
         public IEnumerator<Student> GetEnumerator()
@@ -240,9 +245,17 @@ namespace Student_Collection.Classes
             return GetEnumerator();
         }
 
+        /// <summary>
+        /// It checks students by Id. If student with same id is exists, it will return true and index of this student.
+        /// T(N) = O(N) because of linear search.
+        /// </summary>
+        /// <param name="newStudent">Student for check.</param>
+        /// <param name="studentIndex">Student id.</param>
+        /// <returns>Does student exist? yes - true, no - false.</returns>
         private bool StudentValidation(Student newStudent, out int studentIndex)
         {
             studentIndex = -1;
+
             for (int i = 0; i <= currentIndex; ++i)
             {
                 if (students[i] != null && students[i].Id == newStudent.Id)
@@ -254,12 +267,24 @@ namespace Student_Collection.Classes
 
             return false;
         }
+        /// <summary>
+        /// Increasing the array by the growth index.
+        /// </summary>
         private void GetArrayGrow()
         {
-            Array.Resize(ref students, Capacity * 2);
+            Array.Resize(ref students, Capacity * GrowIndex);
         }
 
-        private void QuiqSortByNumberField(Student[] array, int firstIndex, int lastIndex, Func<Student, Student, bool> funcOne, Func<Student, Student, bool> funcTwo)
+        /// <summary>
+        /// Quicksort method for different situations.
+        /// T(N) = O(N log N), where N - numbers of elements.
+        /// </summary>
+        /// <param name="array">Sourse array.</param>
+        /// <param name="firstIndex">First index.</param>
+        /// <param name="lastIndex">Last index.</param>
+        /// <param name="funcOne">Function (delegate) for the first comparison.</param>
+        /// <param name="funcTwo">Function (delegate) for the second comparison.</param>
+        private void QuiqSortForStudents(Student[] array, int firstIndex, int lastIndex, Func<Student, Student, bool> funcOne, Func<Student, Student, bool> funcTwo)
         {
             int left = firstIndex;
             int right = lastIndex;
@@ -291,55 +316,13 @@ namespace Student_Collection.Classes
 
             if (left < lastIndex)
             {
-                QuiqSortByNumberField(array, left, lastIndex, funcOne, funcTwo);
+                QuiqSortForStudents(array, left, lastIndex, funcOne, funcTwo);
             }
             else { }
 
             if (right > firstIndex)
             {
-                QuiqSortByNumberField(array, firstIndex, right, funcOne, funcTwo);
-            }
-            else { }
-        }
-        private void QuiqSortByStringField(Student[] array, int firstIndex, int lastIndex, Func<Student, Student, bool> funcOne, Func<Student, Student, bool> funcTwo)
-        {
-            int left = firstIndex;
-            int right = lastIndex;
-            Student pivotStudent = array[(firstIndex + lastIndex) / 2];
-
-            while (left < right)
-            {
-                while (funcOne(array[left], pivotStudent))
-                {
-                    ++left;
-                }
-
-                while (funcTwo(array[right], pivotStudent))
-                {
-                    --right;
-                }
-
-                if (left <= right)
-                {
-                    Student temp = array[left];
-                    array[left] = array[right];
-                    array[right] = temp;
-
-                    ++left;
-                    --right;
-                }
-                else { }
-            }
-
-            if (left < lastIndex)
-            {
-                QuiqSortByStringField(array, left, lastIndex, funcOne, funcTwo);
-            }
-            else { }
-
-            if (right > firstIndex)
-            {
-                QuiqSortByStringField(array, firstIndex, right, funcOne, funcTwo);
+                QuiqSortForStudents(array, firstIndex, right, funcOne, funcTwo);
             }
             else { }
         }
