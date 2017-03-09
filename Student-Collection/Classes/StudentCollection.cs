@@ -77,12 +77,6 @@ namespace Student_Collection.Classes
             this.growIndex = growIndex;
             currentIndex = -1;
         }
-        public StudentCollection(StudentCollection newStudents)
-        {
-            this.students = newStudents.students;
-            this.growIndex = newStudents.growIndex;
-            this.currentIndex = newStudents.currentIndex;
-        }
 
         /// <summary>
         ///     It adds a new student.
