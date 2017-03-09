@@ -13,6 +13,10 @@ namespace Student_Collection.Classes
         public int Id { get; set; }
         public string Name { get; set; }
         public string University { get; set; }
+        /// <summary>
+        ///     Student assessment.
+        /// </summary>
+        /// <exception>AssessmentException - An assessment must have value between 1 and 100.</exception>
         public int Assessment
         {
             get

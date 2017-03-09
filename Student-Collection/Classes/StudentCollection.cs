@@ -41,8 +41,9 @@ namespace Student_Collection.Classes
                 return growIndex;
             }
         }
+
         /// <summary>
-        /// Returns the student by Id.
+        ///     Returns the student by Id.
         /// </summary>
         /// <param name="studentId">Id of student.</param>
         /// <returns>Requested student.</returns>
@@ -83,6 +84,11 @@ namespace Student_Collection.Classes
             this.currentIndex = newStudents.currentIndex;
         }
 
+        /// <summary>
+        ///     It adds a new student.
+        /// </summary>
+        /// <param name="newStudent">Student which we want to add.</param>
+        /// <exception>ArgumentException - There is the student with the same id.</exception>
         public void Add(Student newStudent)
         {
             int studentIndex;
@@ -246,8 +252,8 @@ namespace Student_Collection.Classes
         }
 
         /// <summary>
-        /// It checks students by Id. If student with same id is exists, it will return true and index of this student.
-        /// T(N) = O(N) because of linear search.
+        ///     It checks students by Id. If student with same id is exists, it will return true and index of this student.
+        ///     T(N) = O(N) because of linear search.
         /// </summary>
         /// <param name="newStudent">Student for check.</param>
         /// <param name="studentIndex">Student id.</param>
@@ -268,7 +274,7 @@ namespace Student_Collection.Classes
             return false;
         }
         /// <summary>
-        /// Increasing the array by the growth index.
+        ///     Increasing the array by the growth index.
         /// </summary>
         private void GetArrayGrow()
         {
@@ -276,8 +282,8 @@ namespace Student_Collection.Classes
         }
 
         /// <summary>
-        /// Quicksort method for different situations.
-        /// T(N) = O(N log N), where N - numbers of elements.
+        ///     Quicksort method for different situations.
+        ///     T(N) = O(N log N), where N - numbers of elements.
         /// </summary>
         /// <param name="array">Sourse array.</param>
         /// <param name="firstIndex">First index.</param>
